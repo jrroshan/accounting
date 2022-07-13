@@ -46,7 +46,7 @@
                                                 <a
                                                     href="{{ route('admin.students.fees.edit',  ['id' => $fee->id]) }}">Edit
                                                     Fees</a>
-                                                <a href="{{ route('admin.students.edit', $student->id) }}"
+                                                <a href="{{ route('admin.students.fees.transactions', ['student'=> $student,'fee'=>$fee]) }}"
                                                     class="px-2">Pay Fees</a>
                                             </td>
                                         </tr>
@@ -70,15 +70,13 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title d-inline-block">View Transactions</h5>
-                            <a href="{{ route('admin.students.fees', $student->id) }}" class="btn btn-primary mt-2"
-                                style="float:right;">Add Fee</a>
                             <table class="table datatable">
                                 <thead>
                                     <tr>
                                         <th scope="col" width="50">SN.</th>
-                                        <th scope="col">Fee Heading</th>
-                                        <th scope="col">Due Date</th>
+                                        <th scope="col">Discount</th>
                                         <th scope="col">Amount</th>
+                                        <th scope="col">Remarks</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>

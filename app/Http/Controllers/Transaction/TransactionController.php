@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fee;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class Transaction extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +24,11 @@ class Transaction extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($student,$fee)
     {
-        //
+        $total_amount = Fee::whereId($fee)->with('transactions')->first();
+        // dd($total)
+        return view('admin.transaction.create',compact('student','fee','total_amount'));
     }
 
     /**
@@ -33,9 +37,13 @@ class Transaction extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$student,$fee)
     {
-        //
+        $data = $request->all();
+        $data['fee_id']=$fee;
+        $data['student_id']=$student;
+        Transaction::create($data);
+        return redirect()->route('admin.students.index');
     }
 
     /**

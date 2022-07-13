@@ -20,4 +20,8 @@ class Fee extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
 }

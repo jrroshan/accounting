@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Fee\FeeController;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Transaction\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,8 @@ Route::group(['prefix'=>'admin'],function($router){
     $router->get('/students/fees/{id}/edit',[FeeController::class,'edit'])->name('admin.students.fees.edit');
     $router->put('/students/fees/{id}/edit',[FeeController::class,'update'])->name('admin.students.fees.update');
     $router->get('/students/{student}/fees/{fee}/view',[FeeController::class,'view'])->name('admin.students.fees.view');
+
+    // Transaction Route
+    $router->get('/students/{student}/{fee}/transactions',[TransactionController::class,'create'])->name('admin.students.fees.transactions');
+    $router->post('/students/{student}/{fee}/transactions',[TransactionController::class,'store'])->name('admin.students.fees.transactions');
 });
