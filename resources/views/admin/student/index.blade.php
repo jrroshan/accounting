@@ -47,7 +47,7 @@
                                             <?php $total_paid = 0; ?>
                                             <?php $total_discount = 0; ?>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $student->created_at }}</td>
+                                            <td>{{ Carbon\Carbon::parse($student->created_at)->format('m/d/Y') }}</td>
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->email }}</td>
                                             <td>
@@ -59,13 +59,11 @@
                                             <td>
                                                 @foreach ($student->transactions as $transaction)
                                                     <?php $total_paid += $transaction->amount; ?>
+                                                    <?php $total_discount += $transaction->discount; ?>
                                                 @endforeach
                                                 {{ $total_paid }}
                                             </td>
                                             <td>
-                                                @foreach ($student->transactions as $transaction)
-                                                    <?php $total_discount += $transaction->discount; ?>
-                                                @endforeach
                                                 {{ $total_discount }}</td>
                                             <td>{{ $total_amount-$total_paid }}</td>
                                             <td>
