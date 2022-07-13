@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Fee\FeeController;
+use App\Http\Controllers\Student\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix'=>'admin'],function($router){
+    $router->get('/',[DashboardController::class,'index'])->name('admin.dashboard');
+    $router->resource('/students',StudentController::class)->names('admin.students');
+
+    $router->get('/students/{student}/view',[StudentController::class,'view'])->name('admin.students.view');
+    $router->get('/students/{student}/fees',[FeeController::class,'index'])->name('admin.students.fees');
+    $router->post('/students/{student}/fees',[FeeController::class,'store']);
+    $router->get('/students/fees/{id}/edit',[FeeController::class,'edit'])->name('admin.students.fees.edit');
+    $router->put('/students/fees/{id}/edit',[FeeController::class,'update'])->name('admin.students.fees.update');
+    $router->get('/students/{student}/fees/{fee}/view',[FeeController::class,'view'])->name('admin.students.fees.view');
 });
