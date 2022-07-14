@@ -91,7 +91,11 @@ class StudentController extends Controller
 
     public function View($student_id)
     {
-        $student = Student::with('fees','transactions')->findOrFail($student_id);
+        $student = Student::with(['fees'=>function($query){
+            $query->orderByDesc('created_at');
+        }],['transactions'=>function($query){
+            $query->orderByDesc('created_at');
+        }])->findOrFail($student_id);
         return view('admin.student.view',compact('student'));
     }
 }

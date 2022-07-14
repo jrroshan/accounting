@@ -88,8 +88,8 @@
                                             <td>{{ $transaction->amount }}</td>
                                             <td>{{ $transaction->remarks }}</td>
                                             <td>
-                                                <a href="{{ route('admin.students.edit', $transaction->id) }}">Edit
-                                                    Student</a>
+                                                <a href="{{ route('admin.transactions.invoice', $transaction->id) }}">View
+                                                    Invoices</a>
                                             </td>
                                         </tr>
                                     @endforeach

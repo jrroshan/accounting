@@ -31,4 +31,6 @@ Route::group(['prefix'=>'admin'],function($router){
     // Transaction Route
     $router->get('/students/{student}/{fee}/transactions',[TransactionController::class,'create'])->name('admin.students.fees.transactions');
     $router->post('/students/{student}/{fee}/transactions',[TransactionController::class,'store'])->name('admin.students.fees.transactions');
+    $router->get('/transactions/{id}/view',[TransactionController::class,'show'])->name('admin.transactions.show');
+    $router->get('/transactions/{id}/invoice',[TransactionController::class,'invoice'])->name('admin.transactions.invoice');
 });

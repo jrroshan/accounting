@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Models\Fee;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -24,11 +25,11 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($student,$fee)
+    public function create($student, $fee)
     {
         $total_amount = Fee::whereId($fee)->with('transactions')->first();
         // dd($total)
-        return view('admin.transaction.create',compact('student','fee','total_amount'));
+        return view('admin.transaction.create', compact('student', 'fee', 'total_amount'));
     }
 
     /**
@@ -37,11 +38,17 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$student,$fee)
+    public function store(Request $request, $student, $fee)
     {
         $data = $request->all();
-        $data['fee_id']=$fee;
-        $data['student_id']=$student;
+        $transaction = Transaction::latest()->first();
+        if ($transaction == null || $transaction == "" || date('Y-m-01') == Carbon::now()->format('Y-m-d')) {
+            $data['transaction_id'] = date('ymd') . '00001';
+        } else {
+            $data['transaction_id'] = $transaction->transaction_id+1;
+        }
+        $data['fee_id'] = $fee;
+        $data['student_id'] = $student;
         Transaction::create($data);
         return redirect()->route('admin.students.index');
     }
@@ -54,7 +61,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::findOrFail($id);
     }
 
     /**
@@ -89,5 +96,11 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function invoice($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        return view('admin.invoice.index',compact('transaction'));
     }
 }
