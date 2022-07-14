@@ -72,7 +72,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title d-inline-block col-md-4">View Transactions</h5>
-                            <h5 class="card-title d-inline-block col-md-4">Total Due left: {{ $totalPaidAmount }}</h5>
+                            <h5 class="card-title d-inline-block col-md-4">Total Paid Amount: {{ $totalPaidAmount }}</h5>
                             <table class="table datatable">
                                 <thead>
                                     <tr>

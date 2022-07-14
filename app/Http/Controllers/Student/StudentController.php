@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Exports\StudentExport;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -16,7 +18,19 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::with('fees', 'transactions')->get();
-        return view('admin.student.index', compact('students'));
+        $totalFeeAmount = 0;
+        $totalPaidAmount = 0;
+        $totalDueAmount = 0;
+        foreach ($students as $student) {
+            foreach ($student->fees as $fee) {
+                $totalFeeAmount += $fee->amount;
+            }
+            foreach ($student->transactions as $transaction) {
+                $totalPaidAmount += $transaction->amount;
+            }
+        }
+        $totalDueAmount = $totalFeeAmount - $totalPaidAmount;
+        return view('admin.student.index', compact('students','totalFeeAmount','totalPaidAmount','totalDueAmount'));
     }
 
     /**
@@ -92,9 +106,9 @@ class StudentController extends Controller
     public function View($student_id)
     {
         $student = Student::with(['fees' => function ($query) {
-            return $query->orderByDesc('created_at')->with('transactions');
+            return $query->orderByDesc('id')->with('transactions');
         }], ['transactions' => function ($query) {
-            $query->orderByDesc('created_at');
+            return $query->orderByDesc('id');
         }])->findOrFail($student_id);
         $totalFeeAmount = 0;
         $totalPaidAmount = 0;
@@ -102,10 +116,15 @@ class StudentController extends Controller
         foreach ($student->fees as $fee) {
             $totalFeeAmount += $fee->amount;
         }
-        foreach($student->transactions as $transaction){
+        foreach ($student->transactions as $transaction) {
             $totalPaidAmount += $transaction->amount;
         }
         $totalDueAmount = $totalFeeAmount - $totalPaidAmount;
-        return view('admin.student.view', compact('student','totalDueAmount','totalPaidAmount'));
+        return view('admin.student.view', compact('student', 'totalDueAmount', 'totalPaidAmount'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new StudentExport, 'students.xlsx');
     }
 }

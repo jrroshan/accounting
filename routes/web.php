@@ -39,3 +39,6 @@ Route::group(['prefix'=>'admin'],function($router){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('users/export/', [StudentController::class, 'export']);
+

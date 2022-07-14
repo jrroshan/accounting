@@ -23,7 +23,10 @@
                             <div class="alert alert-danger">{{ session('error') }}</div>
                         @endif
                         <div class="card-body">
-                            <h5 class="card-title d-inline-block">Students List</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Students List</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalDueAmount }}</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalPaidAmount }}</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalFeeAmount }}</h5>
                             <h5 class="card-title d-inline-block" style="float: right"><a
                                     href="{{ route('admin.students.create') }}">Add Student</a></h5>
                             <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
