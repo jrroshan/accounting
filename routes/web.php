@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Fee\FeeController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Transaction\TransactionController;

@@ -25,13 +25,13 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#student-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#expense-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Expense</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="student-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="expense-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('admin.students.index') }}">
-              <i class="bi bi-circle"></i><span>Students Details</span>
+            <a href="{{ route('admin.expenses.index') }}">
+              <i class="bi bi-circle"></i><span>Expense Details</span>
             </a>
           </li>
         </ul>

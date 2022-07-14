@@ -12,4 +12,9 @@ class ExpenseCategory extends Model
     protected $fillabel = [
         'category_name',
     ];
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

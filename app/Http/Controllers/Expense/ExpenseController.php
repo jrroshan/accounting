@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Expense;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -14,7 +15,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::orderByDesc('created_at')->get();
+        return view('admin.expense.index',compact('expenses'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.expense.create');
     }
 
     /**
@@ -35,7 +37,7 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
