@@ -161,12 +161,12 @@
                     <tbody>
                         <tr>
                             <td>{{ $transaction->fee->fee_heading }}</td>
-                            <td>{{ $transaction->amount }}</td>
+                            <td>{{ round($transaction->fee->amount/(1 - $transaction->student->discount/100),0) }}</td>
                             <td>{{ $transaction->student->discount }}%</td>
-                            <td>{{ $transaction->amount - ($transaction->student->discount / 100) * $transaction->amount }}</td>
+                            <td>{{ $transaction->amount }}</td>
                         </tr>
                         <td colspan="3" class="text-right"></td>
-                        <td>{{ $transaction->amount - ($transaction->student->discount / 100) * $transaction->amount }}</td>
+                        <td>{{ $transaction->amount }}</td>
                         </tr>
                     </tbody>
                 </table>
