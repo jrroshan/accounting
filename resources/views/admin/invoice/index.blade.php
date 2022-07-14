@@ -122,7 +122,7 @@
                     <div class="col-6">
                         <div class="company-details">
                             <!-- <p class="text-white">assdad asd  asda asdad a sd</p>
-                            <p class="text-white">assdad asd asd</p> -->
+                                <p class="text-white">assdad asd asd</p> -->
                             <p class="text-white">{{ $transaction->transaction_id }}</p>
                         </div>
                     </div>
@@ -163,19 +163,10 @@
                             <td>{{ $transaction->fee->fee_heading }}</td>
                             <td>{{ $transaction->amount }}</td>
                             <td>{{ $transaction->discount }}%</td>
-                            <td>{{ $transaction->amount - ($transaction->discount/100*$transaction->amount) }}</td>
+                            <td>{{ $transaction->amount - ($transaction->discount / 100) * $transaction->amount }}</td>
                         </tr>
-                        {{-- <tr>
-                            <td colspan="3" class="text-right">Sub Total</td>
-                            <td> 10.XX</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-right">Tax Total</td>
-                            <td> 2</td>
-                        </tr>
-                        <tr> --}}
-                            <td colspan="3" class="text-right"></td>
-                            <td>{{ $transaction->amount - ($transaction->discount/100*$transaction->amount) }}</td>
+                        <td colspan="3" class="text-right"></td>
+                        <td>{{ $transaction->amount - ($transaction->discount / 100) * $transaction->amount }}</td>
                         </tr>
                     </tbody>
                 </table>

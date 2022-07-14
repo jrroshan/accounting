@@ -28,8 +28,11 @@ class TransactionController extends Controller
     public function create($student, $fee)
     {
         $total_amount = Fee::whereId($fee)->with('transactions')->first();
-        // dd($total)
-        return view('admin.transaction.create', compact('student', 'fee', 'total_amount'));
+        $remaining_amount = $total_amount->amount - $total_amount->transactions->sum('amount');
+        if($remaining_amount == 0){
+            return redirect()->route('admin.students.index')->with('error', 'Fee already paid');
+        }
+        return view('admin.transaction.create', compact('student', 'fee', 'total_amount','remaining_amount'));
     }
 
     /**
@@ -40,6 +43,9 @@ class TransactionController extends Controller
      */
     public function store(Request $request, $student, $fee)
     {
+        $validatedDate = $request->validate([
+            'amount' => 'required|numeric|min:1|max:'.$request->remaining_amount,
+        ]);
         $data = $request->all();
         $transaction = Transaction::latest()->first();
         if ($transaction == null || $transaction == "" || date('Y-m-01') == Carbon::now()->format('Y-m-d')) {

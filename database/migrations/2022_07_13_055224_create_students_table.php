@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->integer('registration_number');
+            $table->integer('discount')->default(0);
             $table->timestamps();
         });
     }

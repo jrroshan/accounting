@@ -15,6 +15,7 @@ class Student extends Model
         'email',
         'phone',
         'registration_number',
+        'discount',
     ];
 
     public function fees()

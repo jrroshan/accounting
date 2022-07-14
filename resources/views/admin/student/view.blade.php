@@ -46,8 +46,11 @@
                                                 <a
                                                     href="{{ route('admin.students.fees.edit',  ['id' => $fee->id]) }}">Edit
                                                     Fees</a>
+
+                                                    @if ($fee->transactions->sum('amount') != $fee->amount)
                                                 <a href="{{ route('admin.students.fees.transactions', ['student'=> $student,'fee'=>$fee]) }}"
                                                     class="px-2">Pay Fees</a>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach

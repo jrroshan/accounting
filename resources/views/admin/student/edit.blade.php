@@ -143,30 +143,36 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <br>
-                                            <label for="reg" style="padding-bottom: 10px;">Registration NO.</label>
+                                            <label for="client" style="padding-bottom: 10px;">Discount</label>
+                                            <input type="number" class="form-control" name="discount" placeholder=""
+                                                id="discount" value="{{ $student->discount }}">
+                                        </div>
+                                    </div>
 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="reg" style="padding-bottom: 10px;">Registration No.</label>
                                             <input type="number" name="registration_number" class="form-control"
                                                 id="reg" value="{{ $student->registration_number }}">
                                         </div>
                                     </div>
 
-
-
-
-                                </div>
-                                <br>
+                                    <div class="col-12 mt-2">
+                                        <button type="submit" class="btn btn-primary">Submit Form</button>
+                                      </div>
 
 
                         </div>
 
 
 
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <!-- <label class="col-sm-2 col-form-label">Submit Button</label> -->
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary" id="btn">Submit Form</button>
                             </div>
-                        </div>
+                        </div> --}}
 
                         </form><!-- End General Form Elements -->
 

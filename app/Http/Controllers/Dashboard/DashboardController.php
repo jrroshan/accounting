@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +16,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $students = Student::with('transactions')->get();
+        $total_student = $students->count();
+        $total_deposited = 0;
+        $previousDeposited = 0;
+        $increasePercent = 0;
+        // $total_student->count();
+        // dd($dateS = Carbon::now()->startOfMonth()->subMonth(3));
+        // dd(Carbon::now()->endOfMonth()->subMonthsNoOverflow());
+        $monthStart = Carbon::now()->startOfMonth();
+        $monthEnd = Carbon::now()->endOfMonth();
+        $previousMonthStart = carbon::now()->startOfMonth()->subMonth(1);
+        $previousMonthEnd = Carbon::now()->endOfMonth()->subMonthsNoOverflow();
+        foreach ($students as $student) {
+            $total_deposited += $student->transactions->whereBetween('created_at', [$monthStart, $monthEnd])->sum('amount');
+            $previousDeposited += $student->transactions->whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->sum('amount');
+        }
+        if ($previousDeposited != 0 && $total_deposited != 0) {
+            $increasePercent = ($total_deposited - $previousDeposited) / $previousDeposited * 100;
+        }
+        return view('admin.index', compact('total_student', 'total_deposited','increasePercent'));
     }
 
     /**

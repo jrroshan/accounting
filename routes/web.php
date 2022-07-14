@@ -34,3 +34,7 @@ Route::group(['prefix'=>'admin'],function($router){
     $router->get('/transactions/{id}/view',[TransactionController::class,'show'])->name('admin.transactions.show');
     $router->get('/transactions/{id}/invoice',[TransactionController::class,'invoice'])->name('admin.transactions.invoice');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
