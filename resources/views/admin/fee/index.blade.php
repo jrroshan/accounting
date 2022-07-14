@@ -21,7 +21,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Exam Fees Form</h5>
+                            <h5 class="card-title">Fees Form</h5>
 
                             <form method="POST" action="{{ route('admin.students.fees', $student) }}">
                                 @csrf
@@ -43,7 +43,6 @@
                                             <input type="date" class="form-control" placeholder="" id="address"
                                                 name="due_date">
                                         </div>
-
                                     </div>
 
 
@@ -56,21 +55,7 @@
                                                 name="amount">
                                         </div>
                                     </div>
-
-
-
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
                         </div>
 
 

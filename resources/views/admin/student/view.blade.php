@@ -22,7 +22,8 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title d-inline-block">View Fees</h5>
+                            <h5 class="card-title d-inline-block col-md-4">View Fees</h5>
+                            <h5 class="card-title d-inline-block col-md-4">Total Due left: {{ $totalDueAmount }}</h5>
                             <a href="{{ route('admin.students.fees', $student->id) }}" class="btn btn-primary mt-2"
                                 style="float:right;">Add Fee</a>
                             <table class="table datatable">
@@ -32,6 +33,7 @@
                                         <th scope="col">Fee Heading</th>
                                         <th scope="col">Due Date</th>
                                         <th scope="col">Amount</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -42,15 +44,16 @@
                                             <td>{{ $fee->fee_heading ?? 'Heading Not Entered' }}</td>
                                             <td>{{ $fee->due_date ?? 'Due Date Not Entered' }}</td>
                                             <td>{{ $fee->amount ?? 'Amount Not Entered' }}</td>
+                                            <td>{{ $fee->transactions->sum('amount') == $fee->amount ? 'Completed' : 'Not Completed' }}
+                                            </td>
                                             <td>
-                                                <a
-                                                    href="{{ route('admin.students.fees.edit',  ['id' => $fee->id]) }}">Edit
+                                                <a href="{{ route('admin.students.fees.edit', ['id' => $fee->id]) }}">Edit
                                                     Fees</a>
 
-                                                    @if ($fee->transactions->sum('amount') != $fee->amount)
-                                                <a href="{{ route('admin.students.fees.transactions', ['student'=> $student,'fee'=>$fee]) }}"
-                                                    class="px-2">Pay Fees</a>
-                                                    @endif
+                                                @if ($fee->transactions->sum('amount') != $fee->amount)
+                                                    <a href="{{ route('admin.students.fees.transactions', ['student' => $student, 'fee' => $fee]) }}"
+                                                        class="px-2">Pay Fees</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -58,11 +61,7 @@
                             </table>
                         </div>
                     </div>
-
-
                 </div>
-
-
             </div>
         </section>
 
@@ -72,12 +71,12 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title d-inline-block">View Transactions</h5>
+                            <h5 class="card-title d-inline-block col-md-4">View Transactions</h5>
+                            <h5 class="card-title d-inline-block col-md-4">Total Due left: {{ $totalPaidAmount }}</h5>
                             <table class="table datatable">
                                 <thead>
                                     <tr>
                                         <th scope="col" width="50">SN.</th>
-                                        <th scope="col">Discount</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Remarks</th>
                                         <th scope="col">Action</th>
@@ -87,7 +86,6 @@
                                     @foreach ($student->transactions as $transaction)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $transaction->discount }}</td>
                                             <td>{{ $transaction->amount }}</td>
                                             <td>{{ $transaction->remarks }}</td>
                                             <td>

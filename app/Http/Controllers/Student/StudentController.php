@@ -15,8 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('fees','transactions')->get();
-        return view('admin.student.index',compact('students'));
+        $students = Student::with('fees', 'transactions')->get();
+        return view('admin.student.index', compact('students'));
     }
 
     /**
@@ -61,7 +61,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::findOrFail($id);
-        return view('admin.student.edit',compact('student'));
+        return view('admin.student.edit', compact('student'));
     }
 
     /**
@@ -91,11 +91,21 @@ class StudentController extends Controller
 
     public function View($student_id)
     {
-        $student = Student::with(['fees'=>function($query){
-            $query->orderByDesc('created_at');
-        }],['transactions'=>function($query){
+        $student = Student::with(['fees' => function ($query) {
+            return $query->orderByDesc('created_at')->with('transactions');
+        }], ['transactions' => function ($query) {
             $query->orderByDesc('created_at');
         }])->findOrFail($student_id);
-        return view('admin.student.view',compact('student'));
+        $totalFeeAmount = 0;
+        $totalPaidAmount = 0;
+        $totalDueAmount = 0;
+        foreach ($student->fees as $fee) {
+            $totalFeeAmount += $fee->amount;
+        }
+        foreach($student->transactions as $transaction){
+            $totalPaidAmount += $transaction->amount;
+        }
+        $totalDueAmount = $totalFeeAmount - $totalPaidAmount;
+        return view('admin.student.view', compact('student','totalDueAmount','totalPaidAmount'));
     }
 }

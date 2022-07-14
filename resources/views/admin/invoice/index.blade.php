@@ -162,11 +162,11 @@
                         <tr>
                             <td>{{ $transaction->fee->fee_heading }}</td>
                             <td>{{ $transaction->amount }}</td>
-                            <td>{{ $transaction->discount }}%</td>
-                            <td>{{ $transaction->amount - ($transaction->discount / 100) * $transaction->amount }}</td>
+                            <td>{{ $transaction->student->discount }}%</td>
+                            <td>{{ $transaction->amount - ($transaction->student->discount / 100) * $transaction->amount }}</td>
                         </tr>
                         <td colspan="3" class="text-right"></td>
-                        <td>{{ $transaction->amount - ($transaction->discount / 100) * $transaction->amount }}</td>
+                        <td>{{ $transaction->amount - ($transaction->student->discount / 100) * $transaction->amount }}</td>
                         </tr>
                     </tbody>
                 </table>

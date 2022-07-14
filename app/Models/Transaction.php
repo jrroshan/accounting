@@ -12,7 +12,6 @@ class Transaction extends Model
     protected $fillable = [
         'student_id',
         'fee_id',
-        'discount',
         'amount',
         'remarks',
         'transaction_id'

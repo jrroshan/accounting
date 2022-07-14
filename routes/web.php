@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Fee\FeeController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Transaction\TransactionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*

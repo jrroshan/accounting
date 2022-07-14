@@ -48,7 +48,7 @@
                                         <div class="form-group">
                                             <label for="Address" style="padding-bottom: 10px;">Amount</label>
                                             <input type="number" class="form-control" placeholder="" id="address"
-                                                name="amount">
+                                                name="amount" value="{{ old('amount') }}">
                                         </div>
                                         @error('amount')
                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -62,8 +62,7 @@
                                             <label for="amount" style="padding-bottom: 10px;">Remarks</label>
                                             {{-- <input type="text" class="form-control" id="amount" placeholder=""
                                             name="remarks"> --}}
-                                            <textarea class="form-control" cols="20" rows="5" name="remarks">
-                                            </textarea>
+                                            <textarea class="form-control" cols="20" rows="5" name="remarks">{{ old('remarks') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

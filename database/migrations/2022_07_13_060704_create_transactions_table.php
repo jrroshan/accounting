@@ -19,7 +19,6 @@ class CreateTransactionsTable extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('fee_id');
             $table->foreign('fee_id')->references('id')->on('fees')->onDelete('cascade');
-            $table->integer('discount')->default(0);
             $table->bigInteger('transaction_id');
             $table->integer('amount');
             $table->text('remarks');
