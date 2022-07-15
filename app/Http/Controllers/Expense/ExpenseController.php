@@ -16,8 +16,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::orderByDesc('created_at')->get();
-        return view('admin.expense.index',compact('expenses'));
+        $expenses = Expense::orderBy('date','desc')->get();
+        $totalExpenses = $expenses->sum('amount');
+        return view('admin.expense.index',compact('expenses','totalExpenses'));
     }
 
     /**
