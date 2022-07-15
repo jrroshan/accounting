@@ -601,10 +601,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   color: #4154f1;
   transition: 0.3;
-  background: #f6f9ff;
   padding: 10px 15px;
   border-radius: 4px;
 }
+
+.active{
+    background: #f6f9ff!important;
+}
+
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;

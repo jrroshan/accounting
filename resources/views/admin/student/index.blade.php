@@ -38,7 +38,7 @@
                                             <th scope="col" width="50">SN.</th>
                                             <th scope="col">Date of reg</th>
                                             <th scope="col">Student</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone</th>
                                             <th scope="col">Total Amount</th>
                                             <th scope="col">Deposited</th>
                                             <th scope="col">Discount</th>
@@ -56,7 +56,7 @@
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ Carbon\Carbon::parse($student->created_at)->format('m/d/Y') }}</td>
                                                 <td>{{ $student->name }}</td>
-                                                <td>{{ $student->email }}</td>
+                                                <td>{{ $student->phone }}</td>
                                                 <td>
                                                     @foreach ($student->fees as $fee)
                                                         <?php $total_amount += $fee->amount; ?>
@@ -74,11 +74,20 @@
                                                     {{ $total_discount }}</td>
                                                 <td>{{ $total_amount - $total_paid }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.students.view', $student->id) }}">View</a>
+                                                    <a href="{{ route('admin.students.view', $student->id) }}"
+                                                        class="d-inline-block btn btn-primary">View</a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.students.edit', $student->id) }}">Edit
-                                                        Student</a>
+                                                    <a href="{{ route('admin.students.edit', $student->id) }}"
+                                                        class="d-inline-block btn btn-primary mb-1">Edit</a>
+                                                    <form method="post"
+                                                        action="{{ route('admin.students.destroy', $student->id) }}"
+                                                        class="d-inline-block">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                    </form>
+                                                </td>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -93,3 +102,26 @@
         </section>
     </main><!-- End #main -->
 @endsection
+
+@push('custom-scripts')
+    $(document).ready(function(){
+
+    $(document).on('click', '.pagination a', function(event){
+    event.preventDefault();
+    var page = $(this).attr('href').split('page=')[1];
+    fetch_data(page);
+    });
+
+    function fetch_data(page)
+    {
+    $.ajax({
+    url:"/pagination/fetch_data?page="+page,
+    success:function(data)
+    {
+    $('#table_data').html(data);
+    }
+    });
+    }
+
+    });
+@endpush

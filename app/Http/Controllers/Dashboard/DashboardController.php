@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $students = Student::with('transactions')->get();
+        $total_expenses = 0;
         $total_student = $students->count();
         $total_deposited = 0;
         $previousDeposited = 0;
@@ -35,7 +37,8 @@ class DashboardController extends Controller
         if ($previousDeposited != 0 && $total_deposited != 0) {
             $increasePercent = ($total_deposited - $previousDeposited) / $previousDeposited * 100;
         }
-        return view('admin.index', compact('total_student', 'total_deposited','increasePercent'));
+        $total_expenses = Expense::whereBetween('date', [$monthStart, $monthEnd])->sum('amount');
+        return view('admin.index', compact('total_student', 'total_deposited','increasePercent','total_expenses'));
     }
 
     /**

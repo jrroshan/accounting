@@ -30,7 +30,7 @@ class StudentController extends Controller
             }
         }
         $totalDueAmount = $totalFeeAmount - $totalPaidAmount;
-        return view('admin.student.index', compact('students','totalFeeAmount','totalPaidAmount','totalDueAmount'));
+        return view('admin.student.index', compact('students', 'totalFeeAmount', 'totalPaidAmount', 'totalDueAmount'));
     }
 
     /**
