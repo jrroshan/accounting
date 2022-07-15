@@ -40,7 +40,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.add');
+        $registration_number = Student::latest()->first('registration_number');
+        $registration_number->registration_number++;
+        return view('admin.student.add',compact('registration_number'));
     }
 
     /**
@@ -51,7 +53,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        Student::create($request->all());
+        // dd($request->all());
+        $validateData = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required|unique:students',
+            'phone' => 'required|max:10',
+            'discount'=>'required|numeric|between:0,100',
+            'registration_number' => 'required',
+        ]);
+        Student::create($validateData);
         return redirect()->route('admin.students.index');
     }
 

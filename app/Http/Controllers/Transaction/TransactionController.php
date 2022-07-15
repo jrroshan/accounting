@@ -56,7 +56,7 @@ class TransactionController extends Controller
         $data['fee_id'] = $fee;
         $data['student_id'] = $student;
         Transaction::create($data);
-        return redirect()->route('admin.students.index');
+        return redirect()->route('admin.students.view',$student);
     }
 
     /**

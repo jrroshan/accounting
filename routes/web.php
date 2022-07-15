@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Expense\CategoryController;
 use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Fee\FeeController;
+use App\Http\Controllers\Profile\ChangePasswordController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Transaction\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function ($router) {
 
     //Excel export
     Route::get('users/export/', [StudentController::class, 'export']);
+
+    // Change Password
+    $router->get('change-password',[ChangePasswordController::class,'index'])->name('admin.change-password');
+    $router->post('change-password',[ChangePasswordController::class,'store']);
 });
 
 Auth::routes(['register' => false, 'password.request' => false, 'password.reset' => false]);

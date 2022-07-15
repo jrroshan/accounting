@@ -35,6 +35,9 @@
                                             <input type="text" class="form-control" name="name" placeholder=""
                                                 id="Client">
                                         </div>
+                                        @error('name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
@@ -42,6 +45,9 @@
                                         <label for="Address" style="padding-bottom: 10px;">Address</label>
                                         <input type="text" class="form-control" name="address" placeholder=""
                                             id="address">
+                                        @error('address')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                         {{-- </div> --}}
                                     </div>
 
@@ -51,6 +57,9 @@
                                             <label for="email" style="padding-bottom: 10px;">Email</label>
                                             <input type="email" class="form-control" name="email" id="email"
                                                 placeholder="">
+                                            @error('email')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -60,6 +69,9 @@
                                             <label for="num" style="padding-bottom: 10px;">Ph-Number</label>
                                             <input type="number" class="form-control" name="phone" placeholder=""
                                                 id="num">
+                                            @error('phone')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -70,6 +82,9 @@
                                             <label for="client" style="padding-bottom: 10px;">Discount</label>
                                             <input type="number" class="form-control" name="discount" placeholder=""
                                                 id="discount">
+                                            @error('discount')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -78,19 +93,22 @@
                                             <br>
                                             <label for="reg" style="padding-bottom: 10px;">Registration No.</label>
                                             <input type="number" name="registration_number" class="form-control"
-                                                id="reg">
+                                                id="reg" value="{{ $registration_number->registration_number }}">
+                                            @error('registration_number')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-12 mt-2">
                                         <button type="submit" class="btn btn-primary">Submit Form</button>
-                                      </div>
-                                {{-- <div class="mt-2">
+                                    </div>
+                                    {{-- <div class="mt-2">
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary" id="btn">Submit Form</button>
                                     </div>
                                 </div> --}}
-                            </div>
+                                </div>
 
                             </form><!-- End General Form Elements -->
 

@@ -24,15 +24,15 @@
                         @endif
                         <div class="card-body">
                             <h5 class="card-title d-inline-block col-md-2">Students List</h5>
-                            <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalDueAmount }}</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Total Due Amount:{{ $totalDueAmount }}</h5>
                             <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalPaidAmount }}</h5>
-                            <h5 class="card-title d-inline-block col-md-2">Total Paid Amount:{{ $totalFeeAmount }}</h5>
+                            <h5 class="card-title d-inline-block col-md-2">Total Fee Amount:{{ $totalFeeAmount }}</h5>
                             <h5 class="card-title d-inline-block" style="float: right"><a
                                     href="{{ route('admin.students.create') }}">Add Student</a></h5>
                             <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
                             <!-- Table with stripped rows -->
                             <div class="table-responsive">
-                                <table class="table datatable align-middle">
+                                <table class="table datatable">
                                     <thead>
                                         <tr>
                                             <th scope="col" width="50">SN.</th>
@@ -52,7 +52,6 @@
                                             <tr>
                                                 <?php $total_amount = 0; ?>
                                                 <?php $total_paid = 0; ?>
-                                                <?php $total_discount = 0; ?>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ Carbon\Carbon::parse($student->created_at)->format('m/d/Y') }}</td>
                                                 <td>{{ $student->name }}</td>
@@ -66,12 +65,11 @@
                                                 <td>
                                                     @foreach ($student->transactions as $transaction)
                                                         <?php $total_paid += $transaction->amount; ?>
-                                                        <?php $total_discount += $transaction->discount; ?>
                                                     @endforeach
                                                     {{ $total_paid }}
                                                 </td>
                                                 <td>
-                                                    {{ $total_discount }}</td>
+                                                    {{ $student->discount }}%</td>
                                                 <td>{{ $total_amount - $total_paid }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.students.view', $student->id) }}"

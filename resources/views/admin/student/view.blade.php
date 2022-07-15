@@ -44,7 +44,7 @@
                                             <td>{{ $fee->fee_heading ?? 'Heading Not Entered' }}</td>
                                             <td>{{ $fee->due_date ?? 'Due Date Not Entered' }}</td>
                                             <td>{{ $fee->amount ?? 'Amount Not Entered' }}</td>
-                                            <td>{{ $fee->transactions->sum('amount') == $fee->amount ? 'Completed' : 'Not Completed' }}
+                                            <td>{{ $fee->transactions->sum('amount') == $fee->amount ? 'Completed' : ($fee->transactions->sum('amount')!= 0?'Partial Paid':'Not Paid') }}</td>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.students.fees.edit', ['id' => $fee->id]) }}">Edit

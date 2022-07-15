@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Fee;
+namespace App\Http\Controllers\SiteSetting;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fee;
-use App\Models\Student;
 use Illuminate\Http\Request;
 
-class FeeController extends Controller
+class SiteSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($student)
+    public function index()
     {
-        return view('admin.fee.index', compact('student'));
+        //
     }
 
     /**
@@ -35,16 +33,9 @@ class FeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($student, Request $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        unset($data['amount']);
-        $studentData = Student::findOrFail($student);
-        // dd($studentData->discount);
-        $data['amount'] = round($request->amount - ($studentData->discount / 100 * $request->amount),0);
-        $data['student_id'] = $student;
-        Fee::create($data);
-        return redirect()->route('admin.students.view',$student);
+        //
     }
 
     /**
@@ -55,7 +46,7 @@ class FeeController extends Controller
      */
     public function show($id)
     {
-        return Fee::findOrFail($id);
+        //
     }
 
     /**
@@ -66,8 +57,7 @@ class FeeController extends Controller
      */
     public function edit($id)
     {
-        $fee = $this->show($id);
-        return view('admin.fee.edit', compact('fee'));
+        //
     }
 
     /**
@@ -79,9 +69,7 @@ class FeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fee = Fee::findOrFail($id);
-        $fee->update($request->all());
-        return redirect()->route('admin.students.index');
+        //
     }
 
     /**
