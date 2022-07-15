@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Expense\CategoryController;
 use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Fee\FeeController;
 use App\Http\Controllers\Student\StudentController;
@@ -38,6 +39,9 @@ Route::group(['prefix'=>'admin'],function($router){
 
     // Expense Route
     $router->resource('/expenses',ExpenseController::class)->names('admin.expenses');
+
+    // Expense Category Route
+    $router->resource('/expense-category',CategoryController::class)->names('admin.expense.category');
 });
 
 Auth::routes();

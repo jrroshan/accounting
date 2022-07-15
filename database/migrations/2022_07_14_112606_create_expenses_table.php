@@ -18,8 +18,8 @@ class CreateExpensesTable extends Migration
             $table->date('date');
             $table->integer('amount');
             $table->string('description');
-            $table->unsignedBigInteger('expense_category_id');
-            $table->foreign('expense_category_id')->on('expense_categories')->references('id')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('expense_category_id')->nullable();
+            $table->foreign('expense_category_id')->on('expense_categories')->references('id')->onUpdate('cascade');
             $table->timestamps();
         });
     }

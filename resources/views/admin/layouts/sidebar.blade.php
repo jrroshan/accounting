@@ -29,6 +29,11 @@
           <i class="bi bi-journal-text"></i><span>Expense</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="expense-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+                <a href="{{ route('admin.expense.category.index') }}">
+                  <i class="bi bi-circle"></i><span>Expense Category Details</span>
+                </a>
+              </li>
           <li>
             <a href="{{ route('admin.expenses.index') }}">
               <i class="bi bi-circle"></i><span>Expense Details</span>

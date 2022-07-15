@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Add Student</h1>
+            <h1>Add Expense</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
@@ -47,12 +47,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleSelect">Expense Category</label>
-                                            <select class="form-control" id="exampleSelect">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" id="exampleSelect" name="expense_category_id">
+                                                @foreach ($expenseCategories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->category_name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

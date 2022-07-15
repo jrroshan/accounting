@@ -7,12 +7,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Add Student</h1>
+            <h1>Add Expense</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.expenses.index') }}">Expense</a></li>
-                    <li class="breadcrumb-item active">Add Expense</li>
+                    <li class="breadcrumb-item active">Edit Expense</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -23,16 +23,17 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Add Expense</h5>
+                            <h5 class="card-title">Edit Expense</h5>
 
                             <!-- General Form Elements -->
-                            <form action="{{ route('admin.expenses.store') }}" method="post">
+                            <form action="{{ route('admin.expenses.update',$expense->id) }}" method="post">
                                 @csrf
+                                @method('put')
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="client" style="padding-bottom: 10px;">Enter Date</label>
-                                            <input type="date" class="form-control" name="date" id="Client">
+                                            <input type="date" class="form-control" name="date" id="Client" value="{{ $expense->date }}">
                                         </div>
                                     </div>
 
@@ -40,26 +41,25 @@
                                         <div class="form-group">
                                             <label for="Address" style="padding-bottom: 10px;">Amount</label>
                                             <input type="number" class="form-control" name="amount" placeholder=""
-                                                id="amount">
+                                                id="amount" value="{{ $expense->amount }}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleSelect">Expense Category</label>
-                                            <select class="form-control" id="exampleSelect">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="form-control" id="exampleSelect" name="expense_category_id">
+                                                @foreach ($expenseCategories as $category)
+                                                    <option value="{{ $category->id }}"  {{ $category->id==$expense->expense_category_id?"selected":'' }}>{{ $category->category_name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <br>
-                                        <textarea cols="20" class="form-control" name="description"></textarea>
+                                        <textarea cols="20" class="form-control" name="description">{{ $expense->description }}</textarea>
                                     </div>
 
                                     <div class="col-12 mt-2">

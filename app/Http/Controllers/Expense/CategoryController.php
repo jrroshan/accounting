@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Expense;
 
 use App\Http\Controllers\Controller;
-use App\Models\Expense;
 use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
 
-class ExpenseController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::orderByDesc('created_at')->get();
-        return view('admin.expense.index',compact('expenses'));
+        $categories = ExpenseCategory::all();
+        return view('admin.expense.category.index',compact('categories'));
     }
 
     /**
@@ -27,8 +26,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        $expenseCategories = ExpenseCategory::all();
-        return view('admin.expense.create',compact('expenseCategories'));
+        return view('admin.expense.category.create');
     }
 
     /**
@@ -40,13 +38,10 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'date' => 'date',
-            'amount' => 'integer',
-            'description' => 'required',
-            'expense_category_id'=> 'required',
+            'category_name' => ['required'],
         ]);
-        Expense::create($validateData);
-        return redirect()->route('admin.expenses.index');
+        ExpenseCategory::create($validateData);
+        return redirect()->route('admin.expense.category.index');
     }
 
     /**
@@ -68,9 +63,8 @@ class ExpenseController extends Controller
      */
     public function edit($id)
     {
-        $expense = Expense::whereId($id)->first();
-        $expenseCategories = ExpenseCategory::all();
-        return view('admin.expense.edit',compact('expense','expenseCategories'));
+        $expenseCategory = ExpenseCategory::whereId($id)->first();
+        return view('admin.expense.category.edit',compact('expenseCategory'));
     }
 
     /**
@@ -82,10 +76,9 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $expense = Expense::whereId($id)->first();
-        $expense->update($request->all());
-        return redirect()->route('admin.expenses.index');
-
+        $expenseCategory = ExpenseCategory::whereId($id)->first();
+        $expenseCategory->update($request->all());
+        return redirect()->route('admin.expense.category.index');
     }
 
     /**
@@ -96,8 +89,8 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        $expense = Expense::whereId($id)->first();
-        $expense->delete();
-        return redirect()->route('admin.expenses.index');
+        $expenseCategory = ExpenseCategory::whereId($id)->first();
+        $expenseCategory->delete();
+        return redirect()->route('admin.expense.category.index');
     }
 }

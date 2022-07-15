@@ -9,7 +9,7 @@ class ExpenseCategory extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
+    protected $fillable = [
         'category_name',
     ];
 
